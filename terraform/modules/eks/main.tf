@@ -29,6 +29,11 @@ resource "aws_eks_node_group" "default" {
   node_role_arn   = var.node_role_arn
   subnet_ids      = var.private_subnets
 
+  ami_type       = "AL2023_x86_64_STANDARD"
+  instance_types = ["t3.medium"]
+  capacity_type  = "ON_DEMAND"
+  version        = var.kubernetes_version
+
   scaling_config {
     desired_size = 2
     max_size     = 4
@@ -37,9 +42,12 @@ resource "aws_eks_node_group" "default" {
 
   disk_size = var.node_group_disk_size
   labels    = var.node_group_labels
+
   tags = merge({
     Name = "enterprise-node-group"
   }, var.node_group_tags)
 
-  capacity_type = "ON_DEMAND"
+  depends_on = [
+    aws_eks_cluster.this
+  ]
 }
