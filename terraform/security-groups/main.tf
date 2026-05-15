@@ -1,5 +1,5 @@
 resource "aws_security_group" "alb" {
-  name        = "enterprise-alb-sg"
+  name_prefix = "enterprise-alb-sg-"
   description = "Security group for ALB traffic"
   vpc_id      = var.vpc_id
 
@@ -28,7 +28,7 @@ resource "aws_security_group" "alb" {
 }
 
 resource "aws_security_group" "eks_nodes" {
-  name        = "enterprise-eks-nodes-sg"
+  name_prefix = "enterprise-eks-nodes-sg-"
   description = "Security group for EKS worker nodes"
   vpc_id      = var.vpc_id
 
@@ -49,7 +49,7 @@ resource "aws_security_group" "eks_nodes" {
 }
 
 resource "aws_security_group" "rds" {
-  name        = "enterprise-rds-sg"
+  name_prefix = "enterprise-rds-sg-"
   description = "Security group for RDS MySQL"
   vpc_id      = var.vpc_id
 
