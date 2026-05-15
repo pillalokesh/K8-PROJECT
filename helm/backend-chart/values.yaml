@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  registry: "ACCOUNT_ID.dkr.ecr.ap-south-1.amazonaws.com"
+  registry: "385168913795.dkr.ecr.ap-south-1.amazonaws.com"
   repository: "backend-ecr-repo"
   tag: "latest"
   pullPolicy: IfNotPresent

@@ -72,6 +72,9 @@ resource "aws_iam_role" "github_actions" {
           StringEquals = {
             "token.actions.githubusercontent.com:aud" = var.github_oidc_audience
           }
+          StringLike = {
+            "token.actions.githubusercontent.com:sub" = "repo:YOUR_GITHUB_ORG/YOUR_REPO:ref:refs/heads/*"
+          }
         }
       }
     ]

@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: ACCOUNT_ID.dkr.ecr.ap-south-1.amazonaws.com/backend-ecr-repo:latest
+        image: 385168913795.dkr.ecr.ap-south-1.amazonaws.com/backend-ecr-repo:latest
         ports:
         - containerPort: 4000
         env:

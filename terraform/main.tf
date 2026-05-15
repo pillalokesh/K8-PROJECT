@@ -32,14 +32,13 @@ module "security_groups" {
 }
 
 module "eks" {
-  source             = "./modules/eks"
-  cluster_name       = var.cluster_name
-  cluster_role_arn   = module.iam.eks_cluster_role_arn
-  node_role_arn      = module.iam.eks_node_role_arn
-  public_subnets     = module.vpc.public_subnets
-  private_subnets    = module.vpc.private_subnets
-  vpc_id             = module.vpc.vpc_id
-  kubernetes_version = var.kubernetes_version
+  source                     = "./modules/eks"
+  cluster_name               = var.cluster_name
+  cluster_role_arn           = module.iam.eks_cluster_role_arn
+  node_role_arn              = module.iam.eks_node_role_arn
+  cluster_security_group_ids = [module.security_groups.eks_control_plane_security_group_id]
+  private_subnets            = module.vpc.private_subnets
+  kubernetes_version         = var.kubernetes_version
 }
 
 module "rds" {

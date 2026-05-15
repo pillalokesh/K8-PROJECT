@@ -13,7 +13,7 @@ spec:
       values: |
         replicaCount: 2
         image:
-          repository: ACCOUNT_ID.dkr.ecr.ap-south-1.amazonaws.com/backend-ecr-repo
+          repository: 385168913795.dkr.ecr.ap-south-1.amazonaws.com/backend-ecr-repo
           tag: latest
   destination:
     server: https://kubernetes.default.svc

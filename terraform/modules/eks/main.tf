@@ -10,9 +10,16 @@ resource "aws_eks_cluster" "this" {
 
   vpc_config {
     subnet_ids              = var.private_subnets
-    endpoint_public_access  = true
-    endpoint_private_access = false
-    public_access_cidrs     = ["0.0.0.0/0"]
+    security_group_ids      = var.cluster_security_group_ids
+    endpoint_public_access  = var.endpoint_public_access
+    endpoint_private_access = var.endpoint_private_access
+    public_access_cidrs     = var.public_access_cidrs
+  }
+
+  lifecycle {
+    ignore_changes = [
+      version
+    ]
   }
 }
 
@@ -27,6 +34,12 @@ resource "aws_eks_node_group" "default" {
     max_size     = 4
     min_size     = 2
   }
+
+  disk_size = var.node_group_disk_size
+  labels    = var.node_group_labels
+  tags = merge({
+    Name = "enterprise-node-group"
+  }, var.node_group_tags)
 
   capacity_type = "ON_DEMAND"
 }

@@ -1,4 +1,4 @@
-﻿output "frontend_repository_url" {
+output "frontend_repository_url" {
   value = module.ecr.frontend_repository_url
 }
 

@@ -48,6 +48,27 @@ resource "aws_security_group" "eks_nodes" {
   }
 }
 
+resource "aws_security_group" "eks_control_plane" {
+  name_prefix = "enterprise-eks-control-plane-sg-"
+  description = "Security group for the EKS control plane"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    description = "Allow traffic from cluster CIDR to control plane"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = [var.cluster_cidr]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
 resource "aws_security_group" "rds" {
   name_prefix = "enterprise-rds-sg-"
   description = "Security group for RDS MySQL"

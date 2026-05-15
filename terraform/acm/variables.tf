@@ -1,4 +1,4 @@
-﻿variable "domain_name" {
+variable "domain_name" {
   description = "ACM certificate domain name"
   type        = string
 }

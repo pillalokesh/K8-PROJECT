@@ -1,4 +1,4 @@
-﻿variable "frontend_repository" {
+variable "frontend_repository" {
   description = "Frontend ECR repository name"
   type        = string
   default     = "frontend-ecr-repo"

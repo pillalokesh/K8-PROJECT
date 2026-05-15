@@ -65,7 +65,7 @@ jobs:
     if: github.event_name == 'push'
     env:
       AWS_REGION: ap-south-1
-      ECR_REGISTRY: ACCOUNT_ID.dkr.ecr.ap-south-1.amazonaws.com
+      ECR_REGISTRY: 385168913795.dkr.ecr.ap-south-1.amazonaws.com
       BACKEND_REPO: backend-ecr-repo
       FRONTEND_REPO: frontend-ecr-repo
       IMAGE_TAG: ${{ github.sha }}
