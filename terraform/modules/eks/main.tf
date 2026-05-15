@@ -14,8 +14,6 @@ resource "aws_eks_cluster" "this" {
     endpoint_private_access = false
     public_access_cidrs     = ["0.0.0.0/0"]
   }
-
-  depends_on = [aws_iam_role_policy_attachment.eks_cluster_AmazonEKSClusterPolicy]
 }
 
 resource "aws_eks_node_group" "default" {
@@ -31,20 +29,4 @@ resource "aws_eks_node_group" "default" {
   }
 
   capacity_type = "ON_DEMAND"
-}
-
-output "cluster_name" {
-  value = aws_eks_cluster.this.name
-}
-
-output "cluster_endpoint" {
-  value = aws_eks_cluster.this.endpoint
-}
-
-output "cluster_arn" {
-  value = aws_eks_cluster.this.arn
-}
-
-output "cluster_certificate_authority_data" {
-  value = aws_eks_cluster.this.certificate_authority[0].data
 }

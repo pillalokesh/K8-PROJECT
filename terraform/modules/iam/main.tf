@@ -102,15 +102,3 @@ resource "aws_iam_role_policy" "github_actions_policy" {
     ]
   })
 }
-
-output "eks_cluster_role_arn" {
-  value = aws_iam_role.eks_cluster.arn
-}
-
-output "eks_node_role_arn" {
-  value = aws_iam_role.eks_nodegroup.arn
-}
-
-output "github_oidc_role_arn" {
-  value = aws_iam_role.github_actions.arn
-}

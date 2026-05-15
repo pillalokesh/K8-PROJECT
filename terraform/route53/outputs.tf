@@ -10,6 +10,6 @@ output "acm_certificate_arn" {
   value = aws_acm_certificate.site_cert.arn
 }
 
-output "acm_certificate_validation_status" {
-  value = aws_acm_certificate_validation.cert_validation.status
+output "acm_certificate_validation_id" {
+  value = aws_acm_certificate_validation.cert_validation.id
 }
