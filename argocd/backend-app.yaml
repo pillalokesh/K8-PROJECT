@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: enterprise-backend
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/your-org/EK8-PROJECT
+    targetRevision: HEAD
+    path: helm/backend-chart
+    helm:
+      values: |
+        replicaCount: 2
+        image:
+          repository: ACCOUNT_ID.dkr.ecr.ap-south-1.amazonaws.com/backend-ecr-repo
+          tag: latest
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: enterprise
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true

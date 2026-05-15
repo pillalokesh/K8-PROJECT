@@ -1,0 +1,88 @@
+replicaCount: 2
+
+image:
+  registry: "ACCOUNT_ID.dkr.ecr.ap-south-1.amazonaws.com"
+  repository: "backend-ecr-repo"
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 4000
+
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  hosts:
+    - host: api.lokeshwaffle.in
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: backend-tls
+      hosts:
+        - api.lokeshwaffle.in
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 80
+
+env:
+  - name: NODE_ENV
+    value: "production"
+  - name: PORT
+    value: "4000"
+  - name: DB_HOST
+    valueFrom:
+      secretKeyRef:
+        name: db-secret
+        key: host
+  - name: DB_PORT
+    value: "3306"
+  - name: DB_USER
+    valueFrom:
+      secretKeyRef:
+        name: db-secret
+        key: username
+  - name: DB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: db-secret
+        key: password
+  - name: DB_NAME
+    valueFrom:
+      secretKeyRef:
+        name: db-secret
+        key: database
+
+livenessProbe:
+  httpGet:
+    path: /api/health
+    port: 4000
+  initialDelaySeconds: 30
+  periodSeconds: 10
+
+readinessProbe:
+  httpGet:
+    path: /api/health
+    port: 4000
+  initialDelaySeconds: 5
+  periodSeconds: 5

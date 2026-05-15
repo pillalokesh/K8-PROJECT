@@ -1,0 +1,15 @@
+aws_region             = "ap-south-1"
+azs                    = ["ap-south-1a", "ap-south-1b"]
+vpc_cidr               = "10.0.0.0/16"
+public_subnets         = ["10.0.1.0/24", "10.0.2.0/24"]
+private_subnets        = ["10.0.11.0/24", "10.0.12.0/24"]
+cluster_name           = "enterprise-eks-cluster"
+kubernetes_version     = "1.29"
+frontend_ecr_repository = "frontend-ecr-repo"
+backend_ecr_repository  = "backend-ecr-repo"
+db_username            = "adminuser"
+db_password            = "ChangeMe123!"
+db_name                = "appdb"
+db_instance_type       = "db.t3.micro"
+domain_name            = "lokeshwaffle.in"
+github_oidc_audience   = "sts.amazonaws.com"
