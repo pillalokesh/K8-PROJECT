@@ -34,10 +34,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: 'npm'
-          cache-dependency-path: |
-            apps/backend/package-lock.json
-            apps/frontend/package-lock.json
 
       - name: Install backend dependencies
         if: matrix.service == 'backend'
@@ -131,7 +127,7 @@ jobs:
           docker push $ECR_REGISTRY/$FRONTEND_REPO:$IMAGE_TAG
           docker push $ECR_REGISTRY/$FRONTEND_REPO:latest
 
-      - name: Update Kubernetes Manifests
+      - name: Update Kubernetes Backend Manifest
         run: |
           sed -i "s|image: .*|image: $ECR_REGISTRY/$BACKEND_REPO:$IMAGE_TAG|g" kubernetes/02-backend-deployment.yaml
 
